@@ -26,6 +26,7 @@ header{background:var(--green);color:white;padding:24px 18px 22px}header .eyebro
 <nav class="tabs" aria-label="Deler av appen">
  <button class="tab active" data-tab="plan">Ukeplan</button>
  <button class="tab" data-tab="apport">Apport</button>
+ <button class="tab" data-tab="kjeding">Kjeding</button>
  <button class="tab" data-tab="fellesdekk">Fellesdekk</button>
  <button class="tab" data-tab="logg">Treningslogg</button>
 </nav>
@@ -37,6 +38,38 @@ header{background:var(--green);color:white;padding:24px 18px 22px}header .eyebro
  <div class="card"><h2>Apport – egen progresjon</h2><p class="muted">Hovedfokus: tygging i bevegelse, inngang mot fører og levering. Ikke tren sakte bare for å trene sakte; behold den farten der Eir har et bedre grep.</p><div class="notice">Hvis tyggingen øker, gjør neste repetisjon enklere. Ikke kjør mange hele apporter med tygging. Belønn stabile grep, og hold økten kort.</div></div>
  <div class="card" id="apportSteps"></div>
 </section>
+
+<section id="kjeding" class="hidden">
+ <div class="card">
+  <h2>Kjeding – steg for steg</h2>
+  <p class="muted">Bruk korte kjeder først. Belønn ofte mens dere lærer, og øk lengden når kvaliteten holder. Ikke kjør hele programmet hver økt.</p>
+  <div class="notice"><strong>Framlengskjeding:</strong> start med første del og legg til neste del.<br><strong>Baklengskjeding:</strong> start med siste del som allerede er god, og bygg gradvis bakover. Belønningen kommer etter fullført kjede.</div>
+ </div>
+ <div class="card">
+  <h2>Framlengskjeding</h2>
+  <p class="muted">Bygg fra inngangen og framover. Ikke legg til flere deler før den korte kjeden er flytende.</p>
+  <div class="exercise"><label class="smallcheck"><input type="checkbox" data-chain="f1" ><span><strong>Trinn 1: Inngang → startrutine</strong></span></label><p>Tren inngangen på banen, kontakt og rolig start. Belønn etter startrutinen.</p><p class="muted">Gå videre når inngangen er gjenkjennelig og Eir er klar til å jobbe.</p></div>
+  <div class="exercise"><label class="smallcheck"><input type="checkbox" data-chain="f2"><span><strong>Trinn 2: Inngang → lineføring</strong></span></label><p>Legg til en kort lineføringssekvens. Belønn etter sekvensen, ikke for lengden.</p><p class="muted">Kriterium: kontakt og overgang uten at du må lokke Eir videre.</p></div>
+  <div class="exercise"><label class="smallcheck"><input type="checkbox" data-chain="f3"><span><strong>Trinn 3: Lineføring → dekk fra holdt</strong></span></label><p>Fortsett fra lineføringen inn i dekk fra holdt. Begynn med kort marsj og tydelig avslutning.</p><p class="muted">Kriterium: begge øvelsene holder kjent kvalitet når de settes sammen.</p></div>
+  <div class="exercise"><label class="smallcheck"><input type="checkbox" data-chain="f4"><span><strong>Trinn 4: Tre øvelser i rekkefølge</strong></span></label><p>Inngang → lineføring → dekk fra holdt. Belønn etter hele kjeden hvis kvaliteten er god.</p><p class="muted">Hvis flyten faller, gå tilbake til to deler.</p></div>
+ </div>
+ <div class="card">
+  <h2>Baklengskjeding</h2>
+  <p class="muted">Begynn med en avslutning Eir allerede kan. Legg til delen som kommer før, litt om gangen.</p>
+  <div class="exercise"><label class="smallcheck"><input type="checkbox" data-chain="b1"><span><strong>Trinn 1: Tren siste del alene</strong></span></label><p>Velg en enkel, kjent avslutning, for eksempel korrekt avslutning etter innkalling. Belønn umiddelbart etter den gode avslutningen.</p></div>
+  <div class="exercise"><label class="smallcheck"><input type="checkbox" data-chain="b2"><span><strong>Trinn 2: Legg til delen før</strong></span></label><p>Start litt tidligere, slik at Eir utfører innkomsten og avslutter korrekt. Belønn etter hele sekvensen.</p></div>
+  <div class="exercise"><label class="smallcheck"><input type="checkbox" data-chain="b3"><span><strong>Trinn 3: Utvid kjeden bakover</strong></span></label><p>Legg til starten av øvelsen eller den forrige øvelsen. Behold den samme gode avslutningen og belønningsrutinen.</p></div>
+  <div class="exercise"><label class="smallcheck"><input type="checkbox" data-chain="b4"><span><strong>Trinn 4: Sett kjeden inn i programmet</strong></span></label><p>Når sekvensen fungerer, tren den etter en annen kjent øvelse. Ikke øk lengde, forstyrrelser og belønningsforsinkelse samtidig.</p></div>
+ </div>
+ <div class="card">
+  <h2>Tre kjeder å øve på</h2>
+  <div class="exercise"><strong>Kjede A – start på banen</strong><p>Inngang → startrutine → kort lineføring → belønning.</p></div>
+  <div class="exercise"><strong>Kjede B – marsj og posisjon</strong><p>Lineføring → holdt → dekk fra holdt → avslutning.</p></div>
+  <div class="exercise"><strong>Kjede C – fart og avslutning</strong><p>Innkalling fra kort avstand → korrekt avslutning → belønning.</p></div>
+  <p class="muted">Dette er treningskjeder, ikke en erstatning for korrekt konkurranserekkefølge. Når dere prøvekjører, følg gjeldende NKK-reglement og dommerens kommandoer.</p>
+ </div>
+</section>
+
 <section id="fellesdekk" class="hidden">
  <div class="card"><h2>Ekstraøvelse: fellesdekk</h2><p class="muted">Trenes separat og påvirker ikke fremgangen i hovedplanen. Tilpass varighet, avstand og forstyrrelser til nivået Eir mestrer.</p><div id="downSteps"></div></div>
 </section>
@@ -117,7 +150,14 @@ function renderWeeks(){
 function renderApport(){const host=document.getElementById("apportSteps");host.innerHTML=apport.map((a,i)=>`<div class="exercise"><label class="smallcheck"><input type="checkbox" data-ap="${i}" ${state.checks["ap"+i]?"checked":""}><span><strong>${a[0]}</strong></span></label><p>${a[1]}</p><p class="muted"><strong>Kriterium:</strong> ${a[2]}</p><label class="muted" for="apnote${i}">Notat</label><textarea id="apnote${i}" data-apnote="${i}" placeholder="Antall gode repetisjoner, tygging, inngang...">${esc(state.notes["ap"+i]||"")}</textarea></div>`).join("");host.querySelectorAll("[data-ap]").forEach(el=>el.addEventListener("change",()=>{state.checks["ap"+el.dataset.ap]=el.checked;persist();}));host.querySelectorAll("[data-apnote]").forEach(el=>el.addEventListener("input",()=>{state.notes["ap"+el.dataset.apnote]=el.value;persist();}));}
 function renderDown(){const host=document.getElementById("downSteps");host.innerHTML=down.map((a,i)=>`<div class="exercise"><label class="smallcheck"><input type="checkbox" data-down="${i}" ${state.checks["down"+i]?"checked":""}><span><strong>${a[0]}</strong></span></label><p>${a[1]}</p><textarea data-downnote="${i}" placeholder="Notater fra fellesdekk...">${esc(state.notes["down"+i]||"")}</textarea></div>`).join("");host.querySelectorAll("[data-down]").forEach(el=>el.addEventListener("change",()=>{state.checks["down"+el.dataset.down]=el.checked;persist();}));host.querySelectorAll("[data-downnote]").forEach(el=>el.addEventListener("input",()=>{state.notes["down"+el.dataset.downnote]=el.value;persist();}));}
 function updateProgress(){const total=weeks.reduce((n,w)=>n+w.sessions.length,0);const done=weeks.reduce((n,w,wi)=>n+w.sessions.filter((s,si)=>state.checks[`w${wi}s${si}`]).length,0);const pct=Math.round(done/total*100);document.getElementById("progressText").textContent=pct+" %";document.getElementById("progressBar").style.width=pct+"%";document.getElementById("progressCount").textContent=`${done} av ${total} økter fullført`;}
-document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b===btn));["plan","apport","fellesdekk","logg"].forEach(id=>document.getElementById(id).classList.toggle("hidden",id!==btn.dataset.tab));}));
+document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b===btn));["plan","apport","kjeding","fellesdekk","logg"].forEach(id=>document.getElementById(id).classList.toggle("hidden",id!==btn.dataset.tab));}));
+
+document.querySelectorAll("[data-chain]").forEach(el=>{
+ const key="chain_"+el.dataset.chain;
+ el.checked=!!state.checks[key];
+ el.addEventListener("change",()=>{state.checks[key]=el.checked;persist();});
+});
+
 function renderLogs(){const host=document.getElementById("logList");if(!state.logs.length){host.innerHTML='<p class="muted">Ingen logginnlegg ennå.</p>';return;}host.innerHTML=state.logs.map((l,i)=>`<div class="exercise"><strong>${esc(l.date)} · ${esc(l.type)}</strong><p class="muted">${esc(l.quality)}</p><p>${esc(l.notes||"Ingen notater")}</p><button class="btn secondary" data-delete="${i}">Slett dette innlegget</button></div>`).join("");host.querySelectorAll("[data-delete]").forEach(b=>b.addEventListener("click",()=>{state.logs.splice(Number(b.dataset.delete),1);persist();renderLogs();}));}
 document.getElementById("logDate").value=new Date().toISOString().slice(0,10);
 document.getElementById("saveLog").addEventListener("click",()=>{state.logs.unshift({date:document.getElementById("logDate").value,type:document.getElementById("logType").value,quality:document.getElementById("logQuality").value,notes:document.getElementById("logNotes").value});persist();document.getElementById("logNotes").value="";renderLogs();alert("Treningsloggen er lagret på denne enheten.");});
