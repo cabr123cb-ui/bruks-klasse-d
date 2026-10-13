@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#344b3d">
+<meta name="description" content="Treningsplan for bruks klasse D lydighet">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Bruks klasse D – trening med Eir</title>
+<style>
+:root{--green:#344b3d;--green2:#54735d;--paper:#f6f4ee;--card:#fff;--ink:#202820;--muted:#667066;--line:#deded5;--gold:#d9b96e}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}
+header{background:var(--green);color:white;padding:24px 18px 22px}header .eyebrow{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:#dce7dc}h1{font-size:1.75rem;line-height:1.15;margin:7px 0}header p{margin:8px 0 0;color:#edf2ed}.wrap{max-width:760px;margin:auto;padding:16px}.progress-card,.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}.progress-top{display:flex;justify-content:space-between;gap:12px;font-weight:650}.bar{height:9px;border-radius:20px;background:#e8e8df;overflow:hidden;margin-top:10px}.bar span{display:block;height:100%;width:0;background:var(--green2);transition:width .2s}.tabs{display:flex;gap:8px;overflow:auto;padding:2px 0 12px}.tab{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:999px;padding:9px 13px;color:var(--ink);font:inherit}.tab.active{background:var(--green);color:white;border-color:var(--green)}h2{font-size:1.25rem;margin:0 0 8px}h3{font-size:1.03rem;margin:0 0 7px}.muted{color:var(--muted);font-size:.92rem}.week{display:grid;grid-template-columns:1fr;gap:12px}.session{border:1px solid var(--line);border-radius:13px;padding:13px;background:#fff}.session-head{display:flex;align-items:flex-start;gap:10px}.session-head input{width:21px;height:21px;accent-color:var(--green);margin-top:3px;flex-shrink:0}.session-head label{font-weight:700;flex:1}.tag{font-size:.75rem;border-radius:99px;padding:3px 8px;background:#edf1eb;color:var(--green);white-space:nowrap}.steps{padding:10px 0 0 31px}.steps label{display:flex;gap:9px;align-items:flex-start;margin:9px 0}.steps input{margin-top:5px;accent-color:var(--green);flex-shrink:0}.steps input:checked+span{text-decoration:line-through;color:var(--muted)}details{margin-top:9px}summary{font-weight:650;cursor:pointer;color:var(--green)}textarea,select,input[type=text]{width:100%;font:inherit;padding:10px;border:1px solid var(--line);border-radius:10px;background:white;color:var(--ink)}textarea{min-height:82px;resize:vertical}.notes{margin-top:12px}.btn{border:0;border-radius:10px;padding:10px 13px;background:var(--green);color:white;font:inherit;font-weight:650}.btn.secondary{background:#e9ede7;color:var(--green)}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.notice{background:#f5efd9;border-radius:12px;padding:12px;font-size:.92rem}.exercise{border-top:1px solid var(--line);padding:13px 0}.exercise:first-of-type{border-top:0}.smallcheck{display:flex;gap:9px;align-items:flex-start;margin:9px 0}.smallcheck input{margin-top:5px;accent-color:var(--green)}.smallcheck input:checked+span{text-decoration:line-through;color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:.8rem;padding:18px 10px 30px}.hidden{display:none!important}
+@media(min-width:620px){.week{grid-template-columns:1fr 1fr}.session{height:100%}header{padding-left:max(18px,calc((100% - 724px)/2))}}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">Treningsplan · Eir</div><h1>Bruks klasse D</h1><p>6 uker · 3 økter i uka · steg for steg</p></header>
+<main class="wrap">
+<section class="progress-card">
+ <div class="progress-top"><span>Fremgang i hovedplanen</span><span id="progressText">0 %</span></div>
+ <div class="bar"><span id="progressBar"></span></div>
+ <p class="muted" id="progressCount">0 av 18 økter fullført</p>
+</section>
+<nav class="tabs" aria-label="Deler av appen">
+ <button class="tab active" data-tab="plan">Ukeplan</button>
+ <button class="tab" data-tab="apport">Apport</button>
+ <button class="tab" data-tab="fellesdekk">Fellesdekk</button>
+ <button class="tab" data-tab="logg">Treningslogg</button>
+</nav>
+<section id="plan">
+ <div class="card"><h2>Sånn bruker du planen</h2><p class="muted">Ta tre økter i uka når det passer. Kryss av delmålene etter hvert. Gå videre når kvaliteten er god – ikke bare fordi en ny uke starter. Fellesdekk ligger separat.</p><div class="notice">Apportprioritet: Eir tygger mest i bevegelse, men mindre i stor fart. Bevar farten som fungerer, og tren stabilt grep gjennom inngang og oppbremsing i små steg.</div></div>
+ <div id="weeks"></div>
+</section>
+<section id="apport" class="hidden">
+ <div class="card"><h2>Apport – egen progresjon</h2><p class="muted">Hovedfokus: tygging i bevegelse, inngang mot fører og levering. Ikke tren sakte bare for å trene sakte; behold den farten der Eir har et bedre grep.</p><div class="notice">Hvis tyggingen øker, gjør neste repetisjon enklere. Ikke kjør mange hele apporter med tygging. Belønn stabile grep, og hold økten kort.</div></div>
+ <div class="card" id="apportSteps"></div>
+</section>
+<section id="fellesdekk" class="hidden">
+ <div class="card"><h2>Ekstraøvelse: fellesdekk</h2><p class="muted">Trenes separat og påvirker ikke fremgangen i hovedplanen. Tilpass varighet, avstand og forstyrrelser til nivået Eir mestrer.</p><div id="downSteps"></div></div>
+</section>
+<section id="logg" class="hidden">
+ <div class="card"><h2>Treningslogg</h2><p class="muted">Noter hva dere trente, kvalitet og hva du vil gjøre neste gang. Loggen lagres på denne enheten i nettleseren.</p>
+ <label for="logDate">Dato</label><input type="date" id="logDate">
+ <p><label for="logType">Økt</label><select id="logType"><option>Apport</option><option>Enkeltøvelser</option><option>Framlengskjeding</option><option>Baklengskjeding</option><option>Programkjøring</option><option>Fellesdekk</option></select></p>
+ <p><label for="logQuality">Kvalitet</label><select id="logQuality"><option>Veldig bra</option><option>Stort sett bra</option><option>Varierende</option><option>Vanskelig økt</option></select></p>
+ <p><label for="logNotes">Notater</label><textarea id="logNotes" placeholder="Hva fungerte? Hva vil du gjøre enklere neste gang?"></textarea></p>
+ <button class="btn" id="saveLog">Lagre logg</button><div id="logList" style="margin-top:14px"></div>
+ <div class="btnrow"><button class="btn secondary" id="exportData">Eksporter sikkerhetskopi</button><button class="btn secondary" id="clearLogs">Slett bare logginnlegg</button></div>
+ </div>
+</section>
+<footer>Fremgang lagres lokalt på denne enheten. Eksporter en sikkerhetskopi hvis du vil ta vare på loggen.</footer>
+</main>
+<script>
+const weeks = [
+ {title:"Uke 1 – Grunnferdigheter",sessions:[
+  ["Økt 1 · Teknikk","Apportgrep og presisjon",["Presenter apporten og belønn korte, rolige grep.","Tren 5–8 korte repetisjoner; stopp før grepet blir urolig.","Tren en kort lineføringssekvens med vending og holdt."]],
+  ["Økt 2 · Framlengskjeding","Inngang → lineføring → holdt",["Tren inngang og startrutine separat først.","Legg til kort lineføring og deretter holdt.","Belønn etter kjeden; gjenta bare hvis kvaliteten holder."]],
+  ["Økt 3 · Enkeltøvelser","Innkalling og hopp",["Tren innkalling med fart og korrekt avslutning.","Tren hoppet separat etter reglementet.","Avslutt med en kjent, enkel oppgave."]]
+ ]},
+ {title:"Uke 2 – Første overganger",sessions:[
+  ["Økt 1 · Teknikk","Apport + dekk fra holdt",["Fortsett med stabilt grep eller gå videre til opptak hvis grepet er rolig.","Tren dekk fra holdt separat.","Hold økten kort og belønn kvalitet."]],
+  ["Økt 2 · Framlengskjeding","Lineføring → dekk fra holdt",["Start med inngang og kontakt.","Gå kort lineføring og fortsett direkte til dekk fra holdt.","Belønn etter dekkøvelsen og ta pause."]],
+  ["Økt 3 · Baklengskjeding","Innkalling fra avslutningen",["Tren korrekt avslutning først.","Legg til innkomst fra kort avstand.","Øk avstanden når avslutningen er stabil."]]
+ ]},
+ {title:"Uke 3 – Apport i kjede",sessions:[
+  ["Økt 1 · Apport","Opptak → kort retur → levering",["Velg det vanskeligste apporttrinnet som fortsatt gir gode repetisjoner.","Legg til kort retur med stabilt grep.","Hvis tyggingen øker, reduser avstanden."]],
+  ["Økt 2 · Framlengskjeding","Inngang → lineføring → dekk",["Tren inngangen først.","Kjør lineføring og dekk fra holdt.","Belønn etter hele kjeden hvis overgangene er gode."]],
+  ["Økt 3 · Enkeltøvelser","Hopp og innkalling",["Tren hoppet separat.","Sett sammen hopp og innkalling slik reglementet beskriver.","Avslutt med en kort sekvens fra utgangsstilling."]]
+ ]},
+ {title:"Uke 4 – Baklengskjeding",sessions:[
+  ["Økt 1 · Apport","Stabilt grep under retur",["Start på en avstand der Eir tygger mindre.","Belønn stabilt grep gjennom returen og inn i avslutningen.","Ikke øk avstand og fart samtidig."]],
+  ["Økt 2 · Baklengskjeding","Dekk → lineføring → inngang",["Belønn en god avslutning på dekk fra holdt.","Legg til siste del av lineføringen før dekken.","Utvid kjeden bakover når begge deler fungerer."]],
+  ["Økt 3 · Kjede","Lineføring → dekk → innkalling",["Kjør tre kjente øvelser i rekkefølge.","Belønn etter kjeden hvis Eir fortsatt er med deg.","Gå tilbake til to øvelser hvis flyten faller."]]
+ ]},
+ {title:"Uke 5 – Lengre sekvenser",sessions:[
+  ["Økt 1 · Apport + hopp","Kvalitet før helhet",["Tren apporten separat først.","Tren hopp/innkalling som egen sekvens.","Ikke gjør apporten vanskeligere fordi den inngår i kjede."]],
+  ["Økt 2 · Framlengskjeding","Inngang → lineføring → dekk → innkalling",["Start med kort og kjent inngang.","Legg til én øvelse om gangen.","Belønn etter kjeden når kvaliteten er stabil."]],
+  ["Økt 3 · Baklengskjeding","Apportens siste del først",["Start med rolig levering hvis den delen fungerer.","Legg til kort retur og deretter opptak.","Gå tilbake til stabilt grep hvis tyggingen øker."]]
+ ]},
+ {title:"Uke 6 – Helhet",sessions:[
+  ["Økt 1 · Kvalitet","Apport, lineføring og dekk",["Tren svakhetene separat.","Ikke kjør hele programmet.","Noter ett konkret mål for neste økt."]],
+  ["Økt 2 · Programkjøring","Konkurranselignende trening",["Kjør hovedprogrammets øvelser i riktig rekkefølge etter gjeldende reglement.","Bruk en hjelper hvis mulig.","Noter overganger og hva som må trenes separat."]],
+  ["Økt 3 · Lett gjennomgang","Inngang og gode overganger",["Tren inngang på banen.","Kjør et par gode overganger og en enkel apport.","Avslutt mens Eir fortsatt har lyst til å jobbe."]]
+ ]}
+];
+const apport = [
+ ["1. Stabilt grep","Eir griper apporten og holder rolig mens hun står stille.","8 av 10 rolige grep over to økter før du øker kravet."],
+ ["2. Bevegelse i små doser","Start med ett skritt, så to–tre skritt. Ikke legg til vendinger eller fartskrav samtidig.","4 av 5 repetisjoner med stabilt grep i to økter."],
+ ["3. Retur i den farten som fungerer","Bruk kort avstand og la Eir komme direkte inn. Hun tygger mindre i stor fart, så bevar god fart når grepet er stabilt.","Flere korte returer uten tydelig tygging. Hvis tyggingen øker, gjør avstanden enklere."],
+ ["4. Oppbremsing og inngang","Tren kort retur og avslutning. Belønn stabilt grep når hun bremser og kommer i korrekt posisjon.","4 av 5 gode innganger i to økter."],
+ ["5. Hel apport","Sett sammen opptak, retur, inngang og levering på kort avstand. Øk avstanden gradvis.","4 av 5 gode apporter i to økter før du øker vanskeligheten."]
+];
+const down = [
+ ["Ro i posisjon","Tren kort liggetid med passende avstand.",""],
+ ["Varighet","Øk liggetiden gradvis, uten å øke forstyrrelser samtidig.",""],
+ ["Avstand og førerbevegelse","Legg til avstand og bevegelse trinnvis.",""],
+ ["Forstyrrelser og prøveoppsett","Tren med en trygg treningspartner og bygg gradvis mot kravene i gjeldende reglement.",""]
+];
+const KEY="bruksD_eir_v1";
+let state={checks:{},notes:{},logs:[]};
+try{const saved=JSON.parse(localStorage.getItem(KEY)||"null");if(saved)state={...state,...saved};}catch(e){}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){alert("Nettleseren kunne ikke lagre. Eksporter gjerne en sikkerhetskopi.");}}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function renderWeeks(){
+ const host=document.getElementById("weeks");host.innerHTML="";
+ weeks.forEach((w,wi)=>{
+  const card=document.createElement("div");card.className="card";
+  card.innerHTML=`<h2>${w.title}</h2><div class="week">${w.sessions.map((s,si)=>{const id=`w${wi}s${si}`;return `<article class="session"><div class="session-head"><input type="checkbox" data-session="${id}" id="${id}" ${state.checks[id]?"checked":""}><label for="${id}">${s[1]}</label><span class="tag">${s[0].split(" · ")[0]}</span></div><details><summary>Vis steg for steg</summary><div class="steps">${s[2].map((step,i)=>{const cid=`${id}c${i}`;return `<label><input type="checkbox" data-check="${cid}" ${state.checks[cid]?"checked":""}><span>${step}</span></label>`}).join("")}</div></details><div class="notes"><label class="muted" for="n${id}">Notat til denne økten</label><textarea id="n${id}" data-note="${id}" placeholder="Hva fungerte?">${esc(state.notes[id]||"")}</textarea></div></article>`}).join("")}</div>`;
+  host.appendChild(card);
+ });
+ host.querySelectorAll("[data-check],[data-session]").forEach(el=>el.addEventListener("change",()=>{state.checks[el.dataset.check||el.dataset.session]=el.checked;persist();updateProgress();}));
+ host.querySelectorAll("[data-note]").forEach(el=>el.addEventListener("input",()=>{state.notes[el.dataset.note]=el.value;persist();}));
+ updateProgress();
+}
+function renderApport(){const host=document.getElementById("apportSteps");host.innerHTML=apport.map((a,i)=>`<div class="exercise"><label class="smallcheck"><input type="checkbox" data-ap="${i}" ${state.checks["ap"+i]?"checked":""}><span><strong>${a[0]}</strong></span></label><p>${a[1]}</p><p class="muted"><strong>Kriterium:</strong> ${a[2]}</p><label class="muted" for="apnote${i}">Notat</label><textarea id="apnote${i}" data-apnote="${i}" placeholder="Antall gode repetisjoner, tygging, inngang...">${esc(state.notes["ap"+i]||"")}</textarea></div>`).join("");host.querySelectorAll("[data-ap]").forEach(el=>el.addEventListener("change",()=>{state.checks["ap"+el.dataset.ap]=el.checked;persist();}));host.querySelectorAll("[data-apnote]").forEach(el=>el.addEventListener("input",()=>{state.notes["ap"+el.dataset.apnote]=el.value;persist();}));}
+function renderDown(){const host=document.getElementById("downSteps");host.innerHTML=down.map((a,i)=>`<div class="exercise"><label class="smallcheck"><input type="checkbox" data-down="${i}" ${state.checks["down"+i]?"checked":""}><span><strong>${a[0]}</strong></span></label><p>${a[1]}</p><textarea data-downnote="${i}" placeholder="Notater fra fellesdekk...">${esc(state.notes["down"+i]||"")}</textarea></div>`).join("");host.querySelectorAll("[data-down]").forEach(el=>el.addEventListener("change",()=>{state.checks["down"+el.dataset.down]=el.checked;persist();}));host.querySelectorAll("[data-downnote]").forEach(el=>el.addEventListener("input",()=>{state.notes["down"+el.dataset.downnote]=el.value;persist();}));}
+function updateProgress(){const total=weeks.reduce((n,w)=>n+w.sessions.length,0);const done=weeks.reduce((n,w,wi)=>n+w.sessions.filter((s,si)=>state.checks[`w${wi}s${si}`]).length,0);const pct=Math.round(done/total*100);document.getElementById("progressText").textContent=pct+" %";document.getElementById("progressBar").style.width=pct+"%";document.getElementById("progressCount").textContent=`${done} av ${total} økter fullført`;}
+document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b===btn));["plan","apport","fellesdekk","logg"].forEach(id=>document.getElementById(id).classList.toggle("hidden",id!==btn.dataset.tab));}));
+function renderLogs(){const host=document.getElementById("logList");if(!state.logs.length){host.innerHTML='<p class="muted">Ingen logginnlegg ennå.</p>';return;}host.innerHTML=state.logs.map((l,i)=>`<div class="exercise"><strong>${esc(l.date)} · ${esc(l.type)}</strong><p class="muted">${esc(l.quality)}</p><p>${esc(l.notes||"Ingen notater")}</p><button class="btn secondary" data-delete="${i}">Slett dette innlegget</button></div>`).join("");host.querySelectorAll("[data-delete]").forEach(b=>b.addEventListener("click",()=>{state.logs.splice(Number(b.dataset.delete),1);persist();renderLogs();}));}
+document.getElementById("logDate").value=new Date().toISOString().slice(0,10);
+document.getElementById("saveLog").addEventListener("click",()=>{state.logs.unshift({date:document.getElementById("logDate").value,type:document.getElementById("logType").value,quality:document.getElementById("logQuality").value,notes:document.getElementById("logNotes").value});persist();document.getElementById("logNotes").value="";renderLogs();alert("Treningsloggen er lagret på denne enheten.");});
+document.getElementById("clearLogs").addEventListener("click",()=>{if(confirm("Slette alle logginnlegg? Avkryssinger beholdes.")){state.logs=[];persist();renderLogs();}});
+document.getElementById("exportData").addEventListener("click",()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="eir-bruksD-sikkerhetskopi.json";a.click();URL.revokeObjectURL(a.href);});
+renderWeeks();renderApport();renderDown();renderLogs();
+if("serviceWorker" in navigator && location.protocol.startsWith("http")) window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body>
+</html>
